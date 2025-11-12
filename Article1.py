@@ -6,13 +6,15 @@ Created on Tue Nov 11 09:25:29 2025
 """
 import numpy as np
 import matplotlib.pyplot as plt
+
+
 # ============================
-# PARÁMETROS DEL SISTEMA
+# Input parameters
 # ============================
-g     = 9.81                # gravedad [m/s²]
+g     = 9.81                
 m     = 1.0                 # masa del péndulo [kg]
 M     = 1.0                 # masa colgante [kg]
-r1    = 1.0                 # distancia fulcro -> péndulo [m]
+r1    = 1.0                 # distancia fulcro -> masa m [m]
 r2    = 1.0                 # distancia fulcro -> masa M [m]
 l     = 1                   # longitud del péndulo [m]
 alpha = 1000/(3600/(2*np.pi))   # angular acceleration 
@@ -82,7 +84,7 @@ theta0 = np.radians(30)
 
 w0=np.sqrt((2*g/l)*(1-np.cos(theta0)))
 
-wf=([2*np.pi*59.78/60,2*np.pi*100/60,2*np.pi*150/60,2*np.pi*200/60])
+wf=([2*np.pi*100/60,2*np.pi*150/60,2*np.pi*200/60])
 
 fig3,ax3 = plt.subplots()
 Mm=[]
@@ -124,8 +126,8 @@ plt.show
 # ============================
 
 theta = np.radians(np.linspace(0,360,1000))
-w0    = (1/(2*np.pi))*np.sqrt(g/l)
-wf    = np.sqrt(w0**2 + 2*theta*alpha) # 2*np.pi*1000/60
+# w0    = (1/(2*np.pi))*np.sqrt(g/l)
+w0    = 60/2*np.pi # 2*np.pi*1000/60 #
 
 
 
@@ -133,7 +135,7 @@ Mm = (r1/r2) * (l*(w0**2)*np.cos(theta) + 2*l*theta*alpha*np.cos(theta) + g)
     
 
 fig5,ax5 = plt.subplots()
-ax5.plot(np.degrees(theta),Mm,label=r'$\theta_0$ ={} [rpm]'.format(np.round((wf*60/((2*np.pi))),2)))
+ax5.plot(np.degrees(theta),Mm)
 ax5.set_ylabel('M/m',fontsize=20)
 ax5.set_xlabel(r'$\theta$ [°]',fontsize=20)
 ax5.grid(axis='both')
@@ -150,8 +152,7 @@ theta0 = np.radians(-180)
 
 theta = np.radians(np.linspace(0,750,1000))
 wf    = (2*g/l)*(1-np.cos(theta0))
-# w0    = (1/(2*np.pi))*np.sqrt(g/l)
-# w0    =  (-2*theta*alpha1[i] + wf)
+
 
 fig5,ax5 = plt.subplots()
 for i in range(len(alpha1)):
@@ -195,8 +196,8 @@ Fn2 = -((r1/r2) * ((l*(w0) - 4*g) * np.cos(theta) ) * M)
 
 
 
-ax5.plot(np.degrees(theta),Fn1,label=r'$F_n$ - {}rpm'.format(alpha*(3600/(2*np.pi))))
-ax5.plot(np.degrees(theta),Fn2,label=r'$F_t$  - {}rpm'.format(alpha*(3600/(2*np.pi))))
+ax5.plot(np.degrees(theta),Fn1,label=r'$F_1$ - {}rpm'.format(alpha*(3600/(2*np.pi))))
+# ax5.plot(np.degrees(theta),Fn2,label=r'$F_2$  - {}rpm'.format(alpha*(3600/(2*np.pi))))
 
 ax5.set_ylabel('F [N]',fontsize=20)
 ax5.set_xlabel(r'$\theta$ [°]',fontsize=20)
